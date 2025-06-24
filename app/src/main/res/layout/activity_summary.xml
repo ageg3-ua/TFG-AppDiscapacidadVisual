@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/summaryLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/purple_accessible"
+    tools:context=".SummaryActivity">
+
+    <!-- Vista previa de la cámara (parte superior) -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#000000" />
+
+    <!-- Área del resumen + botones -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
+
+        <!-- Texto resumen en grande -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/summaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="24sp"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:lineSpacingExtra="8dp"
+                android:padding="12dp" />
+        </ScrollView>
+
+        <!-- Botones abajo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="12dp">
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/back"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/purple_700"
+                android:elevation="6dp"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/captureButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📸"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@color/purple_700"
+                android:elevation="6dp"
+                android:layout_marginEnd="16dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Leo+</string>
+    <string name="choose_language">Elige idioma</string>
+    <string name="start_button">Iniciar</string>
+    <string name="app_slogan">Tu visión, ahora también por voz</string>
+    <string-array name="languages">
+        <item>Español</item>
+        <item>Inglés</item>
+    </string-array>
+    <string name="no_summary_found">No se pudo resumir el texto</string>
+    <string name="read_text">Lector de Texto</string>
+    <string name="summary">Resumen Automático</string>
+    <string name="meds_reader">Lector Medicamentos</string>
+    <string name="back">VOLVER</string>
+    <string name="about_us">Acerca De</string>
+
+
+</resources>

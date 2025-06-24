@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_accessible"
+    tools:context=".WelcomeActivity">
+
+    <!-- Contenido principal -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- Logo y título -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="277dp"
+                    android:layout_height="243dp"
+                    android:layout_marginBottom="12dp"
+                    android:alpha="0.95"
+                    android:contentDescription="@string/app_name"
+                    android:elevation="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/logo_ini" />
+
+
+            </LinearLayout>
+
+            <!-- Eslogan -->
+            <TextView
+                android:id="@+id/appSlogan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_slogan"
+                android:textSize="26sp"
+                android:lineSpacingExtra="8dp"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@android:color/white"
+                android:textStyle="italic"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="60dp"
+                android:shadowColor="#88000000"
+                android:shadowDx="2"
+                android:shadowDy="3"
+                android:shadowRadius="3"
+                android:gravity="center"
+                android:textAlignment="center" />
+
+            <!-- Selector de idioma -->
+            <Spinner
+                android:id="@+id/languageSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="32dp"
+                android:padding="12dp"
+                android:background="@drawable/boton_fondo"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:entries="@array/languages"
+                android:hint="Choose Language" />
+
+            <!-- Botón de inicio -->
+            <Button
+                android:id="@+id/startButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start_button"
+                android:textAllCaps="false"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="24dp"
+                android:layout_marginTop="46dp"
+                android:layout_marginBottom="32dp"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@color/purple_700"
+                android:elevation="8dp"
+                android:background="@drawable/button_start_border"
+                android:stateListAnimator="@null"
+                android:drawableEnd="@drawable/ic_arrow_forward"
+                android:drawablePadding="12dp"
+                android:gravity="center"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Botón Acerca de, fijo en la esquina inferior derecha -->
+    <Button
+        android:id="@+id/aboutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_us"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@color/purple_700"
+        android:elevation="3dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_back_border"
+        android:stateListAnimator="@null" />
+</FrameLayout>
