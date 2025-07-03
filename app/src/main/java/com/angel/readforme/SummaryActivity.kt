@@ -31,6 +31,10 @@ class SummaryActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var textToSpeech: TextToSpeech
 
+    private val GALLERY_REQUEST_CODE = 2001
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_summary)
@@ -42,6 +46,12 @@ class SummaryActivity : AppCompatActivity() {
             if (it == TextToSpeech.SUCCESS) {
                 textToSpeech.language = Locale.getDefault()
             }
+        }
+
+        val galleryButton = findViewById<Button>(R.id.galleryButton)
+        galleryButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, GALLERY_REQUEST_CODE)
         }
 
         if (allPermissionsGranted()) {
@@ -201,6 +211,41 @@ class SummaryActivity : AppCompatActivity() {
         cameraExecutor.shutdown()
         super.onDestroy()
     }
+
+    @Deprecated("Deprecated.")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.data != null) {
+            val imageUri = data.data
+            try {
+                val inputImage = InputImage.fromFilePath(this, imageUri!!)
+                val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
+                recognizer.process(inputImage)
+                    .addOnSuccessListener { visionText ->
+                        val summary = summarizeText(visionText.text)
+
+                        val summaryTextView = findViewById<TextView>(R.id.summaryText)
+                        summaryTextView.text = if (summary.isNotBlank()) {
+                            summary
+                        } else {
+                            getString(R.string.no_summary_found)
+                        }
+
+                        speakText(summaryTextView.text.toString())
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Error al reconocer texto", Toast.LENGTH_SHORT).show()
+                    }
+
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error al cargar imagen", Toast.LENGTH_SHORT).show()
+                Log.e("GalleryImport", "Error al procesar imagen de galería", e)
+            }
+        }
+    }
+
 
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)

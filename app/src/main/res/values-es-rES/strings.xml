@@ -12,7 +12,8 @@
     <string name="summary">Resumen Automático</string>
     <string name="meds_reader">Lector Medicamentos</string>
     <string name="back">VOLVER</string>
-    <string name="about_us">Acerca De</string>
-
+    <string name="about_us">ACERCA DE</string>
+    <string name="upload">CARGAR IMAGEN</string>
+    <string name="search_info">BUSCAR INFO</string>
 
 </resources>

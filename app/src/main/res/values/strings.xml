@@ -12,6 +12,8 @@
     <string name="summary">Automatic Summary</string>
     <string name="meds_reader">Medicine Reader</string>
     <string name="back">BACK</string>
-    <string name="about_us">About Us</string>
+    <string name="about_us">ABOUT US</string>
+    <string name="upload">UPLOAD IMAGE</string>
+    <string name="search_info">SEARCH INFO</string>
 
 </resources>

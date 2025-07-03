@@ -2,8 +2,10 @@ package com.angel.readforme
 
 import androidx.annotation.OptIn
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
@@ -29,12 +31,54 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var textToSpeech: TextToSpeech
 
+    private val GALLERY_REQUEST_CODE = 1001
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            val imageUri = data.data
+            if (imageUri != null) {
+                try {
+                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+                    processGalleryImage(bitmap)
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Error al cargar imagen", Toast.LENGTH_SHORT).show()
+                    Log.e("Gallery", "Error al obtener imagen", e)
+                }
+            }
+        }
+    }
+
+    private fun processGalleryImage(bitmap: android.graphics.Bitmap) {
+        val inputImage = InputImage.fromBitmap(bitmap, 0)
+        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
+        recognizer.process(inputImage)
+            .addOnSuccessListener { visionText ->
+                val resultText = visionText.text
+                speakText(resultText)
+                Log.d("OCR-Gallery", resultText)
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al reconocer texto en imagen", Toast.LENGTH_SHORT).show()
+                Log.e("OCR-Gallery", "Error", e)
+            }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
         previewView = findViewById(R.id.previewView)
         captureButton = findViewById(R.id.captureButton)
+
+        val galleryButton = findViewById<Button>(R.id.galleryButton)
+        galleryButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, GALLERY_REQUEST_CODE)
+        }
 
         textToSpeech = TextToSpeech(this) { status ->
             if (status == TextToSpeech.SUCCESS) {
